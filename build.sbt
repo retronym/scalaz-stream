@@ -10,7 +10,7 @@ git.gitTagToVersionNumber := {
   case _ => None
 }
 
-scalaVersion := "2.11.6"
+scalaVersion := "2.11.7"
 
 crossScalaVersions := Seq("2.10.5", "2.11.6")
 
@@ -22,7 +22,11 @@ scalacOptions ++= Seq(
   "-language:existentials",
   "-language:postfixOps",
   // "-Xfatal-warnings", // this makes cross compilation impossible from a single source
-  "-Yno-adapted-args"
+  "-Yno-adapted-args",
+  "-Ybackend:GenBCode",
+  "-Xexperimental",
+  "-target:jvm-1.8",
+  "-Ydelambdafy:method"
 )
 
 scalacOptions in (Compile, doc) ++= Seq(
@@ -37,7 +41,8 @@ libraryDependencies ++= Seq(
   "org.scalaz" %% "scalaz-concurrent" % "7.1.2",
   "org.scodec" %% "scodec-bits" % "1.0.6",
   "org.scalaz" %% "scalaz-scalacheck-binding" % "7.1.2" % "test",
-  "org.scalacheck" %% "scalacheck" % "1.12.2" % "test"
+  "org.scalacheck" %% "scalacheck" % "1.12.2" % "test",
+  "org.scala-lang.modules" %% "scala-java8-compat" % "0.5.0"
 )
 
 seq(bintraySettings:_*)
